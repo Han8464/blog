@@ -1,6 +1,11 @@
 <html>
     <body>
-    <form action="/create" method="POST">
+    <form action="/admin/logout" method="post">
+        {{ csrf_field() }}
+        <input type="submit" value="注销">
+        <br>
+    </form>
+    <form action="/admin/post/create" method="POST">
         {{ csrf_field() }}
         标题:<br>
         <input type="text" name="title">
@@ -10,6 +15,7 @@
         <br>
         <input type="submit" value="提交">
     </form>
+
 
     </body>
 </html>
