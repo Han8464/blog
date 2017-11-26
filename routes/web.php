@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/post');
 });
 Route::prefix('admin')->group(function (){
 
