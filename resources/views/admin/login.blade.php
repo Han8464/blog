@@ -13,7 +13,7 @@
     @if(!empty($errmsg))
         <p>{{ $errmsg }}</p>
     @endif
-    <input type="submit" value="提交">
+    <input type="submit" value="登录">
 </form>
 </body>
 </html>
