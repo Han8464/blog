@@ -25,8 +25,14 @@ Route::prefix('admin')->group(function (){
             Route::get('/create', 'AdminController@show_create');
             Route::post('/create', 'AdminController@create');
         });
-        Route::post('/logout', 'AdminController@logout');
-
+        Route::get('/logout', 'AdminController@logout');
+        Route::post('/delete/{id}', 'AdminController@delete');
+        Route::post('/update/{id}', 'AdminController@update');
+        Route::post('/update_save/{id}', 'AdminController@update_save' );
+        Route::get('/list', 'AdminController@show_list');
+        Route::get('/', function (){
+            return redirect('/admin/list');
+        });
     });
 
 

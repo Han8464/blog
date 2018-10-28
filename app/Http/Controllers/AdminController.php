@@ -26,8 +26,8 @@ class AdminController extends Controller
         }else {
             $password = $user->password;
             if($request["psw"] == $password) {
-                session(['is_login'=> true]);
-                return redirect('/admin/post/create');
+                session(['is_login'=> true, 'username'=>$user['username']]);
+                return redirect('/admin/list');
             }else{
                 return redirect('/admin/login?errmsg=密码错误');
             }
@@ -40,7 +40,7 @@ class AdminController extends Controller
     }
 
     public function show_create(){
-        return view('admin.edit');
+        return view('admin.edit', ['is_create' => true]);
     }
 
     public function create(Request $request){
@@ -51,6 +51,37 @@ class AdminController extends Controller
         $article['title'] = $title;
         $article['content'] = $content;
         $article->save();
+        return redirect('/admin/list');
+    }
+
+    public function delete($id)
+    {
+        $article = Article::find($id);
+        $article->delete();
+        return redirect('/post');
+    }
+
+    public function update($id)
+    {
+        $article = Article::find($id);
+        return view('admin.edit', ['is_create' => false, 'article' => $article]);
+    }
+
+    public function update_save($id, Request $request)
+    {
+        $new_title = $request->input('title');
+        $new_content = $request->input('content');
+        $article = Article::find($id);
+        $article['title'] = $new_title;
+        $article['content'] = $new_content;
+        $article->save();
+        return redirect('/admin/list');
+    }
+
+    public function show_list()
+    {
+        $articles = Article::all();
+        return view('admin.list', ['articles'=>$articles]);
     }
 
 
