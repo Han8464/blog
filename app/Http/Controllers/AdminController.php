@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -84,6 +85,35 @@ class AdminController extends Controller
         return view('admin.list', ['articles'=>$articles]);
     }
 
+    public function show_edit_category()
+    {
+        $categories = Category::all();
+       return view('admin.editCategory', ['categories'=>$categories]);
+    }
+
+    public function add_category(Request $request)
+    {
+        $categoryName = $request->input('categoryName');
+        $category = new Category();
+        $category['categoryName'] = $categoryName;
+        $category->save();
+        return redirect('/admin/editCategory');
+    }
+
+    public function delete_category($id)
+    {
+        $category = Category::find($id);
+        $category->delete();
+        return redirect('/admin/editCategory');
+    }
+
+    public function update_category($id, Request $request)
+    {
+        $category = Category::find($id);
+        $category['categoryName'] = $request->input('categoryName');
+        $category->save();
+        return redirect('/admin/editCategory');
+    }
 
 
 }

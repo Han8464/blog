@@ -33,6 +33,10 @@ Route::prefix('admin')->group(function (){
         Route::get('/', function (){
             return redirect('/admin/list');
         });
+        Route::get('/editCategory', 'AdminController@show_edit_category');
+        Route::post('/addCategory', 'AdminController@add_category');
+        Route::post('/delete_category/{id}', 'AdminController@delete_category');
+        Route::post('/update_category/{id}', 'AdminController@update_category');
     });
 
 
