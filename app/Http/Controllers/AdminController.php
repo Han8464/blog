@@ -7,6 +7,7 @@ use App\Category;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Tag;
 
 class AdminController extends Controller
 {
@@ -41,7 +42,8 @@ class AdminController extends Controller
     }
 
     public function show_create(){
-        return view('admin.edit', ['is_create' => true]);
+        $categories = Category::all();
+        return view('admin.edit', ['is_create' => true, 'categories' => $categories]);
     }
 
     public function create(Request $request){
@@ -51,6 +53,7 @@ class AdminController extends Controller
         $article = new Article();
         $article['title'] = $title;
         $article['content'] = $content;
+        $article['category_id'] = $request->input('category_id');
         $article->save();
         return redirect('/admin/list');
     }
@@ -65,7 +68,9 @@ class AdminController extends Controller
     public function update($id)
     {
         $article = Article::find($id);
-        return view('admin.edit', ['is_create' => false, 'article' => $article]);
+        $mycategory = Category::find($article['category_id']);
+        $categories = Category::all();
+        return view('admin.edit', ['is_create' => false, 'article' => $article, 'mycategory' => $mycategory, 'categories' => $categories]);
     }
 
     public function update_save($id, Request $request)
@@ -75,6 +80,7 @@ class AdminController extends Controller
         $article = Article::find($id);
         $article['title'] = $new_title;
         $article['content'] = $new_content;
+        $article['category_id'] = $request->input('category_id');
         $article->save();
         return redirect('/admin/list');
     }
@@ -95,7 +101,7 @@ class AdminController extends Controller
     {
         $categoryName = $request->input('categoryName');
         $category = new Category();
-        $category['categoryName'] = $categoryName;
+        $category['name'] = $categoryName;
         $category->save();
         return redirect('/admin/editCategory');
     }
@@ -110,10 +116,40 @@ class AdminController extends Controller
     public function update_category($id, Request $request)
     {
         $category = Category::find($id);
-        $category['categoryName'] = $request->input('categoryName');
+        $category['name'] = $request->input('categoryName');
         $category->save();
         return redirect('/admin/editCategory');
     }
+
+    public function show_edit_tag()
+    {
+        $tags = Tag::all();
+        return view('admin.editTag', ['tags' => $tags]);
+    }
+
+    public function add_tag(Request $request)
+    {
+        $tagName = $request->input('tagName');
+        $tag = new Tag();
+        $tag['name'] = $tagName;
+        $tag->save();
+        return redirect('/admin/editTag');
+    }
+    public function delete_tag($id)
+    {
+        $tag = Tag::find($id);
+        $tag->delete();
+        return redirect('/admin/editTag');
+    }
+
+    public function update_tag($id, Request $request)
+    {
+        $tag = Tag::find($id);
+        $tag['name'] = $request->input('tagName');
+        $tag->save();
+        return redirect('/admin/editTag');
+    }
+
 
 
 }

@@ -35,7 +35,7 @@
                         <li><a href="/admin/post/create">撰写文章</a></li>
                         <li><a href="#">撰写页面</a></li>
                         <li><a href="/admin/editCategory">撰写分类</a></li>
-                        <li><a href="#">撰写标签</a></li>
+                        <li><a href="/admin/editTag">撰写标签</a></li>
                     </ul>
                 </li>
             </ul>

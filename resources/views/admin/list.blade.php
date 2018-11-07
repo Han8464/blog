@@ -12,7 +12,7 @@
         @foreach ($articles as $article)
             <tr>
                 <td>
-                    <a href="/post/{{$article["id"]}}">{{$article["title"]}}</a>
+                    c
                 </td>
                 <td>{{$article["created_at"]}}</td>
                 <td>

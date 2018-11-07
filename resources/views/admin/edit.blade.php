@@ -14,21 +14,24 @@
             <div class="col-md-6 form-group">
                 <label for="title">文章标题：</label>
                 <input id="title" type="text" class="form-control" name="title" placeholder="文章标题" @if(!$is_create)value="{{$article["title"]}}"@endif>
-            </div>
-            <div class="dropdown form-group col-md-12">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Dropdown
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
 
+            @if($is_create)
+                <select class="form-control" name="category_id">
+                    @foreach($categories as $category)
+                            <option value="{{ $category["id"] }}">{{ $category["name"] }}</option>
+                    @endforeach
+                </select>
+            @endif
+                <a href="/admin/editCategory">添加类别</a>
+            @if(!$is_create)
+                <select class="form-control" name="category_id">
+                    @foreach($categories as $category)
+                        <option value="{{ $category["id"] }}" @if($category["id"] == $mycategory["id"]) selected="selected" @endif>{{ $category["name"] }}</option>
+                    @endforeach
+                </select>
+            @endif
+
+            </div>
             <div class="form-group col-md-12">
                 <label for="content">文章正文：</label>
                 <div id="editormd" class="form-group">

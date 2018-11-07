@@ -34,9 +34,13 @@ Route::prefix('admin')->group(function (){
             return redirect('/admin/list');
         });
         Route::get('/editCategory', 'AdminController@show_edit_category');
+        Route::get('/editTag', 'AdminController@show_edit_tag');
         Route::post('/addCategory', 'AdminController@add_category');
         Route::post('/delete_category/{id}', 'AdminController@delete_category');
         Route::post('/update_category/{id}', 'AdminController@update_category');
+        Route::post('/addTag', 'AdminController@add_tag');
+        Route::post('/delete_tag/{id}', 'AdminController@delete_tag');
+        Route::post('/update_tag/{id}', 'AdminController@update_tag');
     });
 
 
